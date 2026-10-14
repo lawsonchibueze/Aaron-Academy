@@ -6,15 +6,31 @@ import { FormEvent, useState } from "react";
 
 import Navbar from "../../components/navbar";
 import SiteFooter from "../../components/site-footer";
+import { apiRequest } from "../../lib/api-client";
 
 const whatsappNumber = "2348137906587";
 
 export default function ContactPage() {
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const sendMessage = (event: FormEvent<HTMLFormElement>) => {
+  const sendMessage = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
+    setLoading(true);
+    setStatus("");
+    try {
+      await apiRequest("/contacts", {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(form.entries())),
+      });
+      setStatus("Your message was saved. WhatsApp is opening now.");
+    } catch {
+      setStatus("We could not save the message, but WhatsApp will still open.");
+    } finally {
+      setLoading(false);
+    }
     const text = `Hello Aaron's Soccer Academy, my name is ${form.get("name")}. ${message}`;
     window.open(
       `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`,
@@ -118,8 +134,9 @@ export default function ContactPage() {
                 />
               </label>
               <button type="submit">
-                Send Message <Send size={16} aria-hidden="true" />
+                {loading ? "Saving..." : "Send Message"} <Send size={16} aria-hidden="true" />
               </button>
+              {status && <p role="status">{status}</p>}
             </form>
           </article>
         </section>

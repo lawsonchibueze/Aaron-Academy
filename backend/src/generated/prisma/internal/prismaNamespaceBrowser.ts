@@ -54,7 +54,9 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  PlayerRegistration: 'PlayerRegistration',
+  ContactMessage: 'ContactMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -134,6 +136,45 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const PlayerRegistrationScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  dateOfBirth: 'dateOfBirth',
+  age: 'age',
+  gender: 'gender',
+  category: 'category',
+  playerPhone: 'playerPhone',
+  parentName: 'parentName',
+  parentPhone: 'parentPhone',
+  occupation: 'occupation',
+  address: 'address',
+  healthStatus: 'healthStatus',
+  indemnityName: 'indemnityName',
+  attestationName: 'attestationName',
+  indemnityAccepted: 'indemnityAccepted',
+  attestationAccepted: 'attestationAccepted',
+  signature: 'signature',
+  signatureDate: 'signatureDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlayerRegistrationScalarFieldEnum = (typeof PlayerRegistrationScalarFieldEnum)[keyof typeof PlayerRegistrationScalarFieldEnum]
+
+
+export const ContactMessageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  subject: 'subject',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
 
 
 export const SortOrder = {

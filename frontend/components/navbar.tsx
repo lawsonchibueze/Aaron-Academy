@@ -10,6 +10,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
+import { getSession, type AuthSession } from "../lib/auth-client";
 
 const aboutLinks = [
   { label: "About Us", href: "/about" },
@@ -21,6 +22,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [session, setSession] = useState<AuthSession | null>(null);
   const pathname = usePathname();
   const [isDark, setIsDark] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -38,6 +40,10 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isDark]);
+
+  useEffect(() => {
+    getSession().then(setSession).catch(() => setSession(null));
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -177,6 +183,14 @@ export default function Navbar() {
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
+            <Link
+              className="dashboard-button"
+              href="/admin"
+              onClick={closeMobileMenu}
+              style={{ display: session ? undefined : "none" }}
+            >
+              Back to Dashboard
+            </Link>
             <Link
               className="register-button"
               href="/registration"
