@@ -7,7 +7,7 @@ export default function TrainingVideo() {
       <div className="training-video__heading">
         <p className="eyebrow">Inside Aaron&apos;s Soccer Academy</p>
         <h2 id="training-video-title">
-          Football is learned by working with football.
+          Football is learned through practice, passion and play!
         </h2>
         <p>
           See the players, practical sessions and day-to-day learning that
